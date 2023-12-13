@@ -12,15 +12,15 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
-type Book struct{
-	ID int 'json:"id"'
-	Title string 'json:"tittle"'
-	Author string 'json:"author"'
+type Book struct {
+	ID     int    `json:"id"`
+	Title  string `json:"tittle"`
+	Author string `json:"author"`
 }
 
 var db *sql.DB
 
-func initDB(){
+func initDB() {
 	var err error
 	db, err = sql.Open("sqlite3", "./books.db")
 	if err != nil {
@@ -33,12 +33,12 @@ func initDB(){
 		author TEXT
 	);
 	`
-	
+
 	_, err = db.Exec(createTable)
 	if err != nil {
 		log.Fatal(err)
 	}
-	
+
 }
 func main() {
 	initDB()
@@ -90,7 +90,7 @@ func getBook(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(book)
 }
-unc createBook(w http.ResponseWriter, r *http.Request) {
+func createBook(w http.ResponseWriter, r *http.Request) {
 	var book Book
 	json.NewDecoder(r.Body).Decode(&book)
 

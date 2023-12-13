@@ -14,7 +14,7 @@ import (
 
 type Book struct {
 	ID     int    `json:"id"`
-	Title  string `json:"tittle"`
+	Title  string `json:"title"`
 	Author string `json:"author"`
 }
 
@@ -27,12 +27,11 @@ func initDB() {
 		log.Fatal(err)
 	}
 	createTable := `
-	CREATE TABLE IF NOT EXISTS books (
-		id INTEGER PRIMARY KEY AUTOINCREMENT,
-		title TEXT,
-		author TEXT
-	);
-	`
+CREATE TABLE IF NOT EXISTS books (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT,
+    author TEXT
+);`
 
 	_, err = db.Exec(createTable)
 	if err != nil {
@@ -90,6 +89,7 @@ func getBook(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(book)
 }
+
 func createBook(w http.ResponseWriter, r *http.Request) {
 	var book Book
 	json.NewDecoder(r.Body).Decode(&book)
